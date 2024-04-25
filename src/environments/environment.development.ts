@@ -1,10 +1,10 @@
 export const environment = {
     firebaseConfig : {
-      apiKey: "AIzaSyAwXwqk6dkrp_l8V5exqlP4eM3UzIMf3bs",
-      authDomain: "abregofoods-b38d5.firebaseapp.com",
-      projectId: "abregofoods-b38d5",
-      storageBucket: "abregofoods-b38d5.appspot.com",
-      messagingSenderId: "550080481808",
-      appId: "1:550080481808:web:a66f48b37e8df13372d895"
+      apiKey: "AIzaSyBTYy5bSi5pCxJxS3sAAxd1Blv6cOMH-Iw",
+  authDomain: "data-abrego.firebaseapp.com",
+  projectId: "data-abrego",
+  storageBucket: "data-abrego.appspot.com",
+  messagingSenderId: "747526692848",
+  appId: "1:747526692848:web:6c6c7b8693eb48ed6c4735"
       },
 };
