@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "descargaexcel-c4d4d"
-  }
+    "default": "data-abrego",
+    "Data-Abrego": "data-abrego"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

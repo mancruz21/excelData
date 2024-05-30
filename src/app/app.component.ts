@@ -236,12 +236,9 @@ export class AppComponent {
         rows.push(rowsPreview[0]);
         rowsPreview.forEach((x) => {
           console.log("Fila generada:", rowsPreview);
-            
-          if(x[2]== this.depto){
+          // Si no se ha seleccionado ningún departamento o si el departamento coincide, agregar la fila
+          if(this.depto === 'Todos' || x[2] === this.depto){
             rows.push(x);
-            console.log("aÑADIDO",x);
-            console.log("Fila generada:", rowsPreview);
-            
           }else{
             console.log("Fallo la prueba")
           }
