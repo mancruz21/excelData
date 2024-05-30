@@ -143,8 +143,8 @@ export class AppComponent {
         data.forEach((item) => {
           const row = [
             item['tipoId']?item['tipoId']:null,
-            item['component1']?item['component1']['id_document']:null,
-            item['component1']?item['component1']['departamento']:null,
+            item['id_document']?item['id_document']:null,
+            item['departamento']?item['departamento']:null,
             item['component1']?item['component1']['Apellidos']:null,
             item['component1']?item['component1']['Nombres']:null,
             item['component1']?item['component1']['Sexo']:null,
@@ -236,9 +236,7 @@ export class AppComponent {
             
             item['component5']?item['component5']['Encuestador']:null,
             item['component5']?item['component5']['FechaDiligenciamiento']:null,
-            item['departamento']?item['departamento']:null,
-            item['id_document']?item['id_document']:null,
-            item['tipoId']?item['tipoID']:null,
+           
           ];
           rowsPreview.push(row);
         });
@@ -246,7 +244,7 @@ export class AppComponent {
         console.log("Fila generada:", rowsPreview);
         rows.push(rowsPreview[0]);
         rowsPreview.forEach((x) => {
-          if(x[13]== this.depto){
+          if(x[2]== this.depto){
             rows.push(x);
             console.log("aÑADIDO",x);
             console.log("Fila generada:", rowsPreview);
