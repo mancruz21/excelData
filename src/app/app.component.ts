@@ -44,6 +44,7 @@ export class AppComponent {
           'tipoId',
           'id_document',
           'departamento',
+          'Municipio',
           'Apellidos',
           'Nombres',
           'Sexo',
@@ -141,17 +142,19 @@ export class AppComponent {
 
           'Encuestador',
           'FechaDiligenciamiento',
-          'departamento',
-          'id_document',
-          'tipoId',
+        
         ];
         rowsPreview.push(headers);
         // Agregar los datos al arreglo de filas
         data.forEach((item) => {
           const row = [
-            item['tipoId'] ? item['tipoId'] : null,
-            item['component1'] ? item['component1']['id_document'] : null,
-            item['component1'] ? item['component1']['departamento'] : null,
+            item['tipoId'] ? item['tipoID'] : null,
+            item['id_document'] ? item['id_document'] : null,
+            item['departamento'] ? item['departamento'] : null,
+            item['municipio'] ? item['municipio'] : null,
+        
+    
+
             item['component1'] ? item['component1']['Apellidos'] : null,
             item['component1'] ? item['component1']['Nombres'] : null,
             item['component1'] ? item['component1']['Sexo'] : null,
@@ -250,10 +253,7 @@ export class AppComponent {
 
             item['component5'] ? item['component5']['Encuestador'] : null,
             item['component5'] ? item['component5']['FechaDiligenciamiento'] : null,
-            item['departamento'] ? item['departamento'] : null,
-            item['municipio'] ? item['municipio'] : null,
-            item['id_document'] ? item['id_document'] : null,
-            item['tipoId'] ? item['tipoID'] : null,
+            
           ];
           rowsPreview.push(row);
         });
@@ -261,9 +261,14 @@ export class AppComponent {
         console.log("Fila generada:", rowsPreview);
         rows.push(rowsPreview[0]);
         rowsPreview.forEach((x) => {
+
+          console.log("Fila generada:", rowsPreview);
           console.log("Fila:", x);
-          if (x[1] == this.depto) {
+          if (x[97] == this.depto) {
             rows.push(x);
+
+          }else{
+            console.log("Deoar5tamento no ecnotrado")
           }
         });
 
