@@ -18,7 +18,7 @@ export class AppComponent {
   }
 
   downloadExcel() {
-    if(this.depto == ''){
+    if (this.depto == '') {
       alert('Debe seleccionar un departamento.');
       return;
     }
@@ -26,14 +26,16 @@ export class AppComponent {
       .then((querySnapshot) => {
         let data: any[] = [];
         querySnapshot.forEach((doc) => {
+          const docData = doc.data();
+          console.log("Datos del documento:", docData);
+
           data.push(doc.data());
-          console.log("Datos obtenidos:", data);
-          console.log(this.depto);
         });
-        console.log(data)
+        
         // Crear un arreglo de filas para los datos
         let rowsPreview: any[] = [];
-        
+        console.log("Filas de vista previa:", rowsPreview);
+
         // Crear la primera fila con encabezados
         const headers = [
           'tipoId',
@@ -67,6 +69,7 @@ export class AppComponent {
           'numMujeres',
           'productor',
           'parentezco',
+          'Otroparentezco',
           'discapacidad',
           'rtaDiscapacidad',
           'etnia',
@@ -79,12 +82,18 @@ export class AppComponent {
           'capacitaciones',
           'plataforma',
           'redes',
-          
+
           'principalIngreso',
           'OtroIngreso',
           'produccionAños',
           'areaProduccion',
           'costoProduccion',
+          'PorcentajeChontaduroGrande',
+          'PorcentajeChontaduroMediano',
+          'PorcentajeChontaduroPequeño',
+          'PrecioChonGrande',
+          'PrecioChonMediano',
+          'PrecioChonPequeño',
           'precioVenta',
           'kilogramos',
           'vendio',
@@ -134,9 +143,8 @@ export class AppComponent {
         data.forEach((item) => {
           const row = [
             item['tipoId']?item['tipoId']:null,
-            item['id_document']?item['id_document']:null,
-            item['departamento']?item['departamento']:null,
-            item['municipio']?item['municipio']:null,
+            item['component1']?item['component1']['id_document']:null,
+            item['component1']?item['component1']['departamento']:null,
             item['component1']?item['component1']['Apellidos']:null,
             item['component1']?item['component1']['Nombres']:null,
             item['component1']?item['component1']['Sexo']:null,
@@ -145,15 +153,15 @@ export class AppComponent {
             item['component1']?item['component1']['Edad']:null,
             item['component1']?item['component1']['LugarNacimiento']:null,
             item['component1']?item['component1']['email']:null,
-            item['component1']?item['component1']['lugarResidencia']:null,
+            item['component1']?item['component1']['LugarResidencia']:null,
             item['component1']?item['component1']['Vereda']:null,
             item['component1']?item['component1']['nombreFinca']:null,
             item['component1']?item['component1']['Predio']:null,
             item['component1']?item['component1']['RtaPredio']:null,
             item['component1']?item['component1']['extension']:null,
-            item['component1']?item['component1']['Latitud']:null,
-            item['component1']?item['component1']['Longitud']:null,
             item['component1']?item['component1']['coordenadas']:null,
+            item['component1']?item['component1']['latitud']:null,
+            item['component1']?item['component1']['longitud']:null,
             item['component1']?item['component1']['Altura']:null,
             item['component1']?item['component1']['escolaridad']:null,
             item['component1']?item['component1']['Telefono']:null,
@@ -185,10 +193,12 @@ export class AppComponent {
             item['component3']?item['component3']['costoProduccion']:null,
             item['component3']?item['component3']['precioVenta']:null,
             item['component3']?item['component3']['kilogramos']:null,
+            item['component3']?item['component3']['precioKilos']:null,
             item['component3']?item['component3']['vendio']:null,
+            item['component3']?item['component3']['vendioCosecha']:null,
             item['component3']?item['component3']['Financia']:null,
             item['component3']?item['component3']['promedio']:null,
-            item['component3']?item['component3']['rtaOtro']:null,
+            item['component3']?item['component3']['rtaotro']:null,
 
             item['component4']?item['component4']['edadPlantas']:null,
             item['component4']?item['component4']['AlturaPlantas']:null,
@@ -212,11 +222,11 @@ export class AppComponent {
             item['component4']?item['component4']['cantidad']:null,
             item['component4']?item['component4']['abono']:null,
             item['component4']?item['component4']['abonocual']:null,
-            item['component4']?item['component4']['abonocantidad']:null,
             item['component4']?item['component4']['abonofrecuencia']:null,
+            item['component4']?item['component4']['abonocantidad']:null,
             item['component4']?item['component4']['PlagasDificil']:null,
-            item['component4']?item['component4']['proceso']:null,
             item['component4']?item['component4']['Cosecha']:null,
+            item['component4']?item['component4']['proceso']:null,
             item['component4']?item['component4']['Herramientas']:null,
             item['component4']?item['component4']['HerramientasDesinfectadas']:null,
             item['component4']?item['component4']['OtroDesinfectante']:null,
@@ -225,17 +235,18 @@ export class AppComponent {
             item['component4']?item['component4']['otroTransporte']:null,
             
             item['component5']?item['component5']['Encuestador']:null,
-            item['component5']?item['component5']['FechaDilingecimiento']:null,
-           
+            item['component5']?item['component5']['FechaDiligenciamiento']:null,
+            item['departamento']?item['departamento']:null,
+            item['id_document']?item['id_document']:null,
+            item['tipoId']?item['tipoID']:null,
           ];
           rowsPreview.push(row);
         });
         let rows = [];
+        console.log("Fila generada:", rowsPreview);
         rows.push(rowsPreview[0]);
         rowsPreview.forEach((x) => {
-          console.log("Fila generada:", rowsPreview);
-            
-          if(x[2]== this.depto){
+          if(x[13]== this.depto){
             rows.push(x);
             console.log("aÑADIDO",x);
             console.log("Fila generada:", rowsPreview);
@@ -244,36 +255,39 @@ export class AppComponent {
             console.log("Fallo la prueba")
           }
         });
-  
+        
         // Crear un libro de Excel y una hoja de trabajo
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
         const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(rows);
-  
+        console.log("Hoja de trabajo generada:", ws);
+        console.log("Hoja de trabajo generada:", ws);
+
+
         // Agregar la hoja de trabajo al libro de Excel
         XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
-  
+
         // Convertir el libro de Excel a un blob de datos
         const blobData = XLSX.write(wb, { bookType: 'xlsx', type: 'base64' });
-  
+
         // Crear un Blob a partir de la cadena base64
         const blob = new Blob([this.base64ToArrayBuffer(blobData)], {
           type:
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
-  
+
         // Crear un objeto URL para el blob de datos
         const blobUrl = URL.createObjectURL(blob);
-  
+
         // Crear un elemento <a> invisible para descargar el archivo
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = blobUrl;
         a.download = 'data.xlsx';
-  
+
         // Agregar el elemento <a> al DOM y simular un clic para descargar el archivo
         document.body.appendChild(a);
         a.click();
-  
+
         // Limpiar el objeto URL y eliminar el elemento <a> del DOM
         URL.revokeObjectURL(blobUrl);
         document.body.removeChild(a);
@@ -282,8 +296,8 @@ export class AppComponent {
         console.error('Error obteniendo documentos: ', error);
       });
   }
-  
-  
+
+
   // Función para convertir una cadena base64 a ArrayBuffer
   base64ToArrayBuffer(base64: string): ArrayBuffer {
     const binaryString = window.atob(base64);
@@ -294,7 +308,7 @@ export class AppComponent {
     }
     return bytes.buffer;
   }
-  
+
 }
 
 
